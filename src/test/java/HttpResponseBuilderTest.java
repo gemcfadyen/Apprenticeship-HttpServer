@@ -47,10 +47,10 @@ public class HttpResponseBuilderTest {
     public void buildsResponseWithBody() {
         HttpResponse response = HttpResponseBuilder.anHttpResponseBuilder()
                 .withStatus(200)
-                .withBody("My=Data")
+                .withBody("My=Data".getBytes())
                 .build();
 
-        assertThat(response.body(), is("My=Data"));
+        assertThat(response.body(), is("My=Data".getBytes()));
     }
 
     @Test

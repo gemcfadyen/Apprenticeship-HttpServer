@@ -66,7 +66,7 @@ public class HttpRequestProcessorTest {
         HttpResponse httpResponse = requestProcessor.process(httpRequest);
 
         assertThat(httpResponse.statusCode(), is(200));
-        assertThat(httpResponse.body(), is("My=Data"));
+        assertThat(httpResponse.body(), is("My=Data".getBytes()));
         assertThat(resourceFinderSpy.hasLookedupResource(), is(true));
     }
 
@@ -76,7 +76,7 @@ public class HttpRequestProcessorTest {
         HttpResponse httpResponse = requestProcessor.process(httpRequest);
 
         assertThat(httpResponse.statusCode(), is(200));
-        assertThat(httpResponse.body(), is("content"));
+        assertThat(httpResponse.body(), is("content".getBytes()));
         assertThat(resourceWriterSpy.hasWrittenToResource(), is(true));
     }
 
@@ -86,7 +86,7 @@ public class HttpRequestProcessorTest {
         HttpResponse httpResponse = requestProcessor.process(httpRequest);
 
         assertThat(httpResponse.statusCode(), is(200));
-        assertThat(httpResponse.body(), is("content"));
+        assertThat(httpResponse.body(), is("content".getBytes()));
         assertThat(resourceWriterSpy.hasWrittenToResource(), is(true));
     }
 
@@ -101,9 +101,6 @@ public class HttpRequestProcessorTest {
 
     @Test
     public void redirectReturns302() {
-//        HTTP/1.1 302 Found
-//        Location: http://www.iana.org/domains/example/
-
         HttpRequest httpRequest = new HttpRequest(HttpMethods.GET.name(), "/redirect", EMPTY_MAP, "");
         HttpResponse httpResponse = requestProcessor.process(httpRequest);
 
@@ -111,4 +108,12 @@ public class HttpRequestProcessorTest {
         assertThat(httpResponse.location(), is("http://localhost:5000/"));
     }
 
+    @Test
+    public void getImageContent() {
+        HttpRequest httpRequest = new HttpRequest(HttpMethods.GET.name(), "/image.jpeg", EMPTY_MAP, "");
+        HttpResponse httpResponse = requestProcessor.process(httpRequest);
+
+        assertThat(httpResponse.statusCode(), is(200));
+        //assertThat(httpResponse.body(), is("")); //TODO its using the spy image thingy so need to update
+    }
 }

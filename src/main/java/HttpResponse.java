@@ -7,14 +7,14 @@ class HttpResponse {
     private final List<HttpMethods> allowedMethods;
     private String httpVersion;
     private String reasonPhrase;
-    private String body;
+    private byte[] body;
 
     protected HttpResponse(int statusCode,
                            String httpVersion,
                            String reasonPhrase,
                            String location,
                            List<HttpMethods> allowedMethods,
-                           String body) {
+                           byte[] body) {
         this.statusCode = statusCode;
         this.httpVersion = httpVersion;
         this.location = location;
@@ -40,7 +40,7 @@ class HttpResponse {
         return allowedMethods;
     }
 
-    public String body() {
+    public byte[] body() {
         return body;
     }
 

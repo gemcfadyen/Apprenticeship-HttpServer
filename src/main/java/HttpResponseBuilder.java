@@ -6,7 +6,7 @@ public final class HttpResponseBuilder {
     private int statusCode;
     private String reasonPhrase;
     private List<HttpMethods> allowedMethods = new ArrayList<>();
-    private String body;
+    private byte[] body;
     private String location;
 
     public static HttpResponseBuilder anHttpResponseBuilder() {
@@ -37,7 +37,7 @@ public final class HttpResponseBuilder {
         return this;
     }
 
-    public HttpResponseBuilder withBody(String content) {
+    public HttpResponseBuilder withBody(byte[] content) {
         this.body = content;
         return this;
     }

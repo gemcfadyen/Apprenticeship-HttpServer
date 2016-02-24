@@ -28,21 +28,28 @@ public class FileFinderTest {
     public void looksupExistingResource() throws IOException {
         File resource = setupResourceWithContent();
         ResourceFinder resourceFinder = new FileFinder(absolutePath);
-        String resourceContent = resourceFinder.getContentOf("/" + resource.getName());
+        byte[] resourceContent = resourceFinder.getContentOf("/" + resource.getName());
 
-        assertThat(resourceContent, is("My=Data"));
+        assertThat(resourceContent, is("My=Data".getBytes()));
     }
 
     @Test
     public void looksupNonExistingResource() {
         ResourceFinder resourceFinder = new FileFinder(absolutePath);
-        String resourceContent = resourceFinder.getContentOf("non-existing-resource");
+        byte[] resourceContent = resourceFinder.getContentOf("non-existing-resource");
 
         assertThat(resourceContent, CoreMatchers.nullValue());
     }
 
-    private File setupResourceWithContent() throws IOException {
+    @Test
+    public void looksupImage() {
+//        FileFinder ff = new FileFinder("/Users/Georgina/Documents/Projects/cob-server/cob_spec/public");
+//        String content = ff.getContentOf("/image.jpeg");
+//
+//        System.out.println("Content of image is: bytes " + content.getBytes());
+    }
 
+    private File setupResourceWithContent() throws IOException {
         File resource = temporaryFolder.newFile("resource");
         Writer fileWriter = new FileWriter(resource.getPath());
         fileWriter.write("My=Data");

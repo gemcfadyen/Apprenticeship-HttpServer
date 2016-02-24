@@ -1,4 +1,5 @@
 public interface ResourceFinder {
-    String getContentOf(String resourcePath);
+    byte[] getContentOf(String resourcePath);
+    byte[] getImageContent(String resourcePath);
 }
 

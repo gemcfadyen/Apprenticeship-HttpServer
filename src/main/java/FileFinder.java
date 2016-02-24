@@ -1,6 +1,9 @@
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 class FileFinder implements ResourceFinder {
     private String rootPath;
@@ -9,16 +12,47 @@ class FileFinder implements ResourceFinder {
         this.rootPath = rootPath;
     }
 
-    public String getContentOf(String resourcePath) {
+    public byte[] getImageContent(String resourcePath) {
+        BufferedImage image = null;
+//        try {
+//            image = ImageIO.read(new File(rootPath + resourcePath));
+//            System.out.println("IMAGE FOUND" + image);
+//            return image;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
-            System.out.println("Looking up resource at location: " + rootPath + resourcePath);
-            String content = readContentsOfFile(filename(resourcePath));
-            System.out.println("contents of file found " + content);
-            return content;
+            return Files.readAllBytes(Paths.get(filename(resourcePath)));
         } catch (IOException e) {
-            System.out.println("FILE IS NOT Found!!!");
-            return noResourceContentAvailable();
+            e.printStackTrace();
         }
+
+//        byte[] bytes;
+//        try {
+//            RandomAccessFile f = new RandomAccessFile(filename(resourcePath), "r");
+//            bytes = new byte[(int) f.length()];
+//            f.read(bytes);
+//            f.close();
+//            System.out.println("The image bytes are: " + bytes);
+//            return bytes;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("no image found");
+        return null;
+    }
+
+    public byte[] getContentOf(String resourcePath) {
+        return getImageContent(resourcePath);
+//        try {
+//            System.out.println("Looking up resource at location: " + rootPath + resourcePath);
+//            String content = readContentsOfFile(filename(resourcePath));
+////            System.out.println("contents of file found " + content);
+//            return content.getBytes("UTF-8");
+//        } catch (IOException e) {
+//            System.out.println("FILE IS NOT Found!!!");
+//            return noResourceContentAvailable();
+//        }
     }
 
     private String filename(String resourcePath) {
@@ -46,7 +80,7 @@ class FileFinder implements ResourceFinder {
         return line != null;
     }
 
-    private String noResourceContentAvailable() {
+    private byte[] noResourceContentAvailable() {
         return null;
     }
 }

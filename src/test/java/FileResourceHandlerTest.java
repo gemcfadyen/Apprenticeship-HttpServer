@@ -32,7 +32,7 @@ public class FileResourceHandlerTest {
         ResourceHandler resourceHandler = new FileResourceHandler(absolutePath);
         resourceHandler.write(resourceName, "My=Data");
 
-        assertThat(getContentOfResource(), is("My=Data"));
+        assertThat(getContentOfResource(), is("My=Data".getBytes()));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class FileResourceHandlerTest {
         resourceHandler.write(resourceName, "originalData");
         resourceHandler.write(resourceName, "UpdatedData");
 
-        assertThat(getContentOfResource(), is("UpdatedData"));
+        assertThat(getContentOfResource(), is("UpdatedData".getBytes()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class FileResourceHandlerTest {
         resourceHandler.write(resourceName, "anything");
     }
 
-    private String getContentOfResource() {
+    private byte[] getContentOfResource() {
         ResourceFinder reader = new FileFinder(absolutePath);
         return reader.getContentOf(resourceName);
     }
