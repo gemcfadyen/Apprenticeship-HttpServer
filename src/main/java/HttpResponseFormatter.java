@@ -36,6 +36,11 @@ public class HttpResponseFormatter implements ResponseFormatter {
         if (hasAllowMethods(response)) {
             formattedHeader += addAllowLineToHeader(response);
         }
+
+        if(hasLocation(response)) {
+           formattedHeader += addLocationToHeader(response);
+        }
+
         formattedHeader += endOfHeader();
         return formattedHeader;
     }
@@ -43,6 +48,15 @@ public class HttpResponseFormatter implements ResponseFormatter {
     private String addAllowLineToHeader(HttpResponse response) {
         return endOfLine() + commaDelimitAllowParameters(response);
     }
+
+    private boolean hasLocation(HttpResponse response) {
+        String location = response.location();
+        return !(location == null || location.equals(""));
+    }
+
+   private String addLocationToHeader(HttpResponse response) {
+      return endOfLine() + "Location: " + response.location();
+   }
 
     private boolean hasAllowMethods(HttpResponse response) {
         return response.allowedMethods().size() > 0;

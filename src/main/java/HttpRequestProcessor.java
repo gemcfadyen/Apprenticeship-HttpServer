@@ -42,7 +42,11 @@ public class HttpRequestProcessor implements RequestProcessor {
             httpResponseBuilder.withStatus(200).withReasonPhrase("OK");
         } else if (httpRequest.getRequestUri().equals("/method_options")) {
             httpResponseBuilder.withStatus(200).withReasonPhrase("OK").withAllowMethods(HttpMethods.values());
-        } else {
+        } else if(httpRequest.getRequestUri().equals("/redirect")) {
+            httpResponseBuilder.withStatus(302).withReasonPhrase("Found").withLocation("http://localhost:5000/");
+        }
+
+        else {
             httpResponseBuilder.withStatus(404).withReasonPhrase("Not Found");
         }
 

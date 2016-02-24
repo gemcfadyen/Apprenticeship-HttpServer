@@ -45,6 +45,15 @@ public class HttpResponseFormatterTest {
     }
 
     @Test
+    public void locationLineResponseFormat() {
+        HttpResponse response = HttpResponseBuilder.anHttpResponseBuilder().withStatus(302).withReasonPhrase("Found").withLocation("www.newurl.com").build();
+
+        byte[] formattedResponse = formatter.format(response);
+
+        assertThat(formattedResponse, is("HTTP/1.1 302 Found\r\nLocation: www.newurl.com\r\n\r\n".getBytes()));
+    }
+
+    @Test
     public void bodyIncludedOnResponse() {
         HttpResponse response = HttpResponseBuilder.anHttpResponseBuilder().withStatus(200).withReasonPhrase("OK").withBody("My=Data").build();
 

@@ -52,4 +52,14 @@ public class HttpResponseBuilderTest {
 
         assertThat(response.body(), is("My=Data"));
     }
+
+    @Test
+    public void buildsResponseWithRedirectLocation() {
+        HttpResponse response = HttpResponseBuilder.anHttpResponseBuilder()
+                .withStatus(302)
+                .withLocation("new-url")
+                .build();
+
+        assertThat(response.location(), is("new-url"));
+    }
 }

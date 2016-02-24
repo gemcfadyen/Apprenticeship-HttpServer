@@ -7,13 +7,14 @@ public final class HttpResponseBuilder {
     private String reasonPhrase;
     private List<HttpMethods> allowedMethods = new ArrayList<>();
     private String body;
+    private String location;
 
     public static HttpResponseBuilder anHttpResponseBuilder() {
         return new HttpResponseBuilder();
     }
 
     public HttpResponse build() {
-        return new HttpResponse(statusCode, "HTTP/1.1", reasonPhrase, allowedMethods, body);
+        return new HttpResponse(statusCode, "HTTP/1.1", reasonPhrase, location, allowedMethods, body);
     }
 
     public HttpResponseBuilder withStatus(int statusCode) {
@@ -28,6 +29,11 @@ public final class HttpResponseBuilder {
 
     public HttpResponseBuilder withAllowMethods(HttpMethods... supportedMethods) {
         Collections.addAll(allowedMethods, supportedMethods);
+        return this;
+    }
+
+    public HttpResponseBuilder withLocation(String redirectUrl) {
+        this.location = redirectUrl;
         return this;
     }
 

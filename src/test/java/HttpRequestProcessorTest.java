@@ -99,4 +99,16 @@ public class HttpRequestProcessorTest {
         assertThat(resourceWriterSpy.hasDeletedResource(), is(true));
     }
 
+    @Test
+    public void redirectReturns302() {
+//        HTTP/1.1 302 Found
+//        Location: http://www.iana.org/domains/example/
+
+        HttpRequest httpRequest = new HttpRequest(HttpMethods.GET.name(), "/redirect", EMPTY_MAP, "");
+        HttpResponse httpResponse = requestProcessor.process(httpRequest);
+
+        assertThat(httpResponse.statusCode(), is(302));
+        assertThat(httpResponse.location(), is("http://localhost:5000/"));
+    }
+
 }
