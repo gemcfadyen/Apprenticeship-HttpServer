@@ -13,7 +13,6 @@ public class HttpServerRunner {
 
         int port = commandLineArgumentParser.extractPort(args);
         String publicDirectory = commandLineArgumentParser.extractPublicDirectory(args);
-        System.out.println("[Public Directory] " + publicDirectory);
 
         HttpServerSocket httpServerSocket = new HttpServerSocket(new ServerSocket(port), new HttpResponseFormatter());
 

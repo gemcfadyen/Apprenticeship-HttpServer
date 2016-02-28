@@ -30,7 +30,6 @@ public class HttpRequestParser implements RequestParser {
         String[] requestLine = getRequestLine(reader);
         Map<String, String> headerParams = getHeaderParameters(reader);
         char[] bodyContents = getBody(reader, getContentLength(headerParams));
-        System.out.println("body is: " + String.valueOf(bodyContents));
 
         return anHttpRequestBuilder()
                 .withRequestLine(getMethod(requestLine))
@@ -42,9 +41,7 @@ public class HttpRequestParser implements RequestParser {
     }
 
     private String[] getRequestLine(BufferedReader reader) throws IOException {
-        String firstLine = readLine(reader);
-        System.out.println("REQUEST LINE " + firstLine);
-        return splitUsing(space(), firstLine);
+        return splitUsing(space(), readLine(reader));
     }
 
     private String getRequestUri(String[] requestLine) {
@@ -106,12 +103,10 @@ public class HttpRequestParser implements RequestParser {
     }
 
     private String headerParameterKey(String[] params) {
-        System.out.println("KEY: " + params[0]);
         return params[0].trim();
     }
 
     private String headerParameterValue(String[] params) {
-        System.out.println("VALUE: " + params[1]);
         return params[1].trim();
     }
 

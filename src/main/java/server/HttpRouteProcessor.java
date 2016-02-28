@@ -46,7 +46,7 @@ public class HttpRouteProcessor implements RouteProcessor {
 
     @Override
     public HttpResponse process(HttpRequest httpRequest) {
-        System.out.println("Routing key is: " + httpRequest.getRequestUri() + httpRequest.getMethod());
+        System.out.println("Routing " + httpRequest.getRequestUri() + " - " + httpRequest.getMethod());
         if (isBogusMethod(httpRequest)) {
             return new MethodNotAllowed().process(httpRequest);
         } else if (supportedRoute(httpRequest)) {

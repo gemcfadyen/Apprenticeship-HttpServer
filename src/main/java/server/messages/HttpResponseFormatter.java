@@ -27,7 +27,6 @@ public class HttpResponseFormatter implements ResponseFormatter {
 
     protected byte[] createFormatted(HttpResponse response) throws UnsupportedEncodingException {
         String formattedHeader = createHeader(response);
-        System.out.println("formatted header is  " + formattedHeader + "\n--------------\n");
         byte[] formattedBody = createBody(response);
         return createWholeResponse(formattedHeader.getBytes("UTF-8"), formattedBody);
     }

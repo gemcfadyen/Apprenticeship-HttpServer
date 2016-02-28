@@ -22,8 +22,6 @@ public class Authorisation implements Action {
 
     @Override
     public HttpResponse process(HttpRequest request) {
-        System.out.println("Checking Authentication...");
-
         return isAuthorised(getCredentialsFromRequest(request)) ?
                 readResource.process(request) :
                 anHttpResponseBuilder().withStatusCode(UNAUTHORISED)
