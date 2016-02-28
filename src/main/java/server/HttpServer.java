@@ -29,7 +29,6 @@ public class HttpServer {
     }
 
     public void processRequest() {
-        System.out.println("Listening for request.....");
 
         new ProcessClientRequestThread(
                 serverSocket.accept(),
