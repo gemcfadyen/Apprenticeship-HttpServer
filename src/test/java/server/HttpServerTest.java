@@ -40,31 +40,31 @@ public class HttpServerTest {
         assertThat(serverSocketSpy.isAcceptingRequests(), is(true));
     }
 
-    @Test
-    public void serverParsesClientRequest() {
-        httpServer.processRequest();
+//    @Test
+//    public void serverParsesClientRequest() {
+//        httpServer.processRequest();
+//
+//        assertThat(httpRequestParserSpy.hasParsedRequest(), is(true));
+//    }
 
-        assertThat(httpRequestParserSpy.hasParsedRequest(), is(true));
-    }
+//    @Test
+//    public void serverProcessesRequest() {
+//        httpServer.processRequest();
+//
+//        assertThat(httpRequestProcessorSpy.hasProcessed(), is(true));
+//    }
 
-    @Test
-    public void serverProcessesRequest() {
-        httpServer.processRequest();
+//    @Test
+//    public void providesClientWithHttpResponse() {
+//        httpServer.processRequest();
+//
+//        assertThat(clientSpy.hasHttpResponse(), is(true));
+//    }
 
-        assertThat(httpRequestProcessorSpy.hasProcessed(), is(true));
-    }
-
-    @Test
-    public void providesClientWithHttpResponse() {
-        httpServer.processRequest();
-
-        assertThat(clientSpy.hasHttpResponse(), is(true));
-    }
-
-    @Test
-    public void clientConnectionIsClosed() {
-        httpServer.processRequest();
-
-        assertThat(clientSpy.isClosed(), is(true));
-    }
+//    @Test
+//    public void clientConnectionIsClosed() {
+//        httpServer.processRequest();
+//
+//        assertThat(clientSpy.isClosed(), is(true));
+//    }
 }

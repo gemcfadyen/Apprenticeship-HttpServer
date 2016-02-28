@@ -31,11 +31,14 @@ public class HttpServer {
     public void processRequest() {
         System.out.println("Listening for request.....");
 
-        HttpSocket client = serverSocket.accept();
-        HttpRequest httpRequest = requestParser.parse(client.getRawHttpRequest());
-
-        client.setHttpResponse(httpRouteProcessor.process(httpRequest));
-        client.close();
+        new ProcessClientRequestThread(
+                serverSocket.accept(),
+                requestParser,
+                httpRouteProcessor).start();
+//        HttpRequest httpRequest = requestParser.parse(client.getRawHttpRequest());
+//
+//        client.setHttpResponse(httpRouteProcessor.process(httpRequest));
+//        client.close();
     }
 }
 
