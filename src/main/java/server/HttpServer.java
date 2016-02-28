@@ -3,29 +3,16 @@ package server;
 import server.messages.HttpRequest;
 
 public class HttpServer {
-    private final String host;
-    private final int port;
     private final HttpServerSocket serverSocket;
     private final RequestParser requestParser;
     private RouteProcessor httpRouteProcessor;
 
-    public HttpServer(String host, int port,
-                      HttpServerSocket serverSocket,
+    public HttpServer(HttpServerSocket serverSocket,
                       RequestParser requestParser,
                       RouteProcessor httpRouteProcessor) {
-        this.host = host;
-        this.port = port;
         this.serverSocket = serverSocket;
         this.requestParser = requestParser;
         this.httpRouteProcessor = httpRouteProcessor;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public int getPort() {
-        return port;
     }
 
     public void processRequest() {

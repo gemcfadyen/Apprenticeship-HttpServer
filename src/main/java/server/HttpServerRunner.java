@@ -19,8 +19,6 @@ public class HttpServerRunner {
         HttpServerSocket httpServerSocket = new HttpServerSocket(new ServerSocket(port), new HttpResponseFormatter());
 
         HttpServer httpServer = new HttpServer(
-                host,
-                port,
                 httpServerSocket,
                 new HttpRequestParser(),
                 new HttpRouteProcessor(new FileResourceHandler(publicDirectory))

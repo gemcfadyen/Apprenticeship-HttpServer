@@ -20,17 +20,7 @@ public class HttpServerTest {
         serverSocketSpy = new ServerSocketSpy(clientSpy);
         httpRequestParserSpy = new RequestParserSpy();
         httpRequestProcessorSpy = new RouteProcessorSpy();
-        httpServer = new HttpServer("localhost", 8080, serverSocketSpy, httpRequestParserSpy, httpRequestProcessorSpy);
-    }
-
-    @Test
-    public void serverHasAHost() {
-        assertThat(httpServer.getHost(), is("localhost"));
-    }
-
-    @Test
-    public void serverHasAPort() {
-        assertThat(httpServer.getPort(), is(8080));
+        httpServer = new HttpServer(serverSocketSpy, httpRequestParserSpy, httpRequestProcessorSpy);
     }
 
     @Test
