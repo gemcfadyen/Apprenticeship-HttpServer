@@ -19,9 +19,9 @@ public class HttpServer {
         System.out.println("Listening for request.....");
 
         HttpSocket client = serverSocket.accept();
-        HttpRequest httpRequest = requestParser.parse(client.getRawHttpRequest());
+       // HttpRequest httpRequest = requestParser.parse(client.getRawHttpRequest());
 
-        client.setHttpResponse(httpRouteProcessor.process(httpRequest));
-        client.close();
+        //client.setHttpResponse(httpRouteProcessor.process(httpRequest));
+        //client.close();
     }
 }
