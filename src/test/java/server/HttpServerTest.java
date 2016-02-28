@@ -7,26 +7,44 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class HttpServerTest {
-
     private ServerSocketSpy serverSocketSpy;
-    private RequestParserSpy httpRequestParserSpy;
     private HttpServer httpServer;
-    private ClientSpy clientSpy;
-    private RouteProcessorSpy httpRequestProcessorSpy;
+    private ExecutorServiceFactorySpy executorServiceFactorySpy;
+    private ThreadExecutorServiceSpy threadExecutorServiceSpy;
 
     @Before
     public void setUp() throws Exception {
-        clientSpy = new ClientSpy();
-        serverSocketSpy = new ServerSocketSpy(clientSpy);
-        httpRequestParserSpy = new RequestParserSpy();
-        httpRequestProcessorSpy = new RouteProcessorSpy();
-        httpServer = new HttpServer(serverSocketSpy, httpRequestParserSpy, httpRequestProcessorSpy);
+        serverSocketSpy = new ServerSocketSpy(new ClientSpy());
+        threadExecutorServiceSpy = new ThreadExecutorServiceSpy();
+        executorServiceFactorySpy = new ExecutorServiceFactorySpy(threadExecutorServiceSpy);
+
+        httpServer = new HttpServer(
+                serverSocketSpy,
+                new RequestParserSpy(),
+                new RouteProcessorSpy(),
+                executorServiceFactorySpy
+        );
     }
 
     @Test
-    public void whenServerIsStartedItAcceptsClientRequests() {
+    public void whenServerIsProcessingItCreatesThreadpool() {
+        httpServer.processRequest();
+
+        assertThat(executorServiceFactorySpy.hasInitialisedThreadPool(), is(true));
+    }
+
+    @Test
+    public void whenServerIsProcessingItExecutesRunnableTask() {
         httpServer.processRequest();
 
         assertThat(serverSocketSpy.isAcceptingRequests(), is(true));
+        assertThat(threadExecutorServiceSpy.hasExecutedRunnable(), is(true));
+    }
+
+    @Test
+    public void threadExecutorServiceShutsdown() {
+        httpServer.processRequest();
+
+        assertThat(threadExecutorServiceSpy.hasShutdown(), is(true));
     }
 }

@@ -9,7 +9,7 @@ public class HttpServerSocket {
 
     public HttpServerSocket(ServerSocket serverSocket, ResponseFormatter httpResponseFormatter) {
        this.serverSocket = serverSocket;
-        responseFormatter = httpResponseFormatter;
+       this.responseFormatter = httpResponseFormatter;
     }
 
     public HttpSocket accept() {
