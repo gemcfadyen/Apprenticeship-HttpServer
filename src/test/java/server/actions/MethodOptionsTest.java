@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
 import static server.messages.StatusCode.OK;
-import static server.router.HttpMethods.*;
+import static server.HttpMethods.*;
 
 public class MethodOptionsTest {
     private MethodOptions methodOptions = new MethodOptions();

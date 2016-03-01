@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static server.messages.HttpMessageHeaderProperties.AUTHORISATION;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
-import static server.router.HttpMethods.GET;
+import static server.HttpMethods.GET;
 
 public class AuthorisationTest {
     private ResourceHandlerSpy resourceHandlerSpy = new ResourceHandlerSpy();

@@ -1,5 +1,7 @@
 package server.router;
 
+import server.HttpMethods;
+
 public class RoutingCriteria {
     private final Route route;
     private final HttpMethods method;

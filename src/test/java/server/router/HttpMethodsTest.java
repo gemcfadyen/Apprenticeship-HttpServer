@@ -1,6 +1,7 @@
 package server.router;
 
 import org.junit.Test;
+import server.HttpMethods;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;

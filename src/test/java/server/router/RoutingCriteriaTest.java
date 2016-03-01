@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static server.router.HttpMethods.GET;
-import static server.router.HttpMethods.POST;
+import static server.HttpMethods.GET;
+import static server.HttpMethods.POST;
 import static server.router.Route.FILE;
 import static server.router.Route.HOME;
 

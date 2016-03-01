@@ -17,7 +17,7 @@ import static server.messages.HttpMessageHeaderProperties.IF_MATCH;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
 import static server.messages.StatusCode.NO_CONTENT;
 import static server.messages.StatusCode.PRECONDITION_FAILED;
-import static server.router.HttpMethods.PATCH;
+import static server.HttpMethods.PATCH;
 
 public class PatchResourceTest {
 

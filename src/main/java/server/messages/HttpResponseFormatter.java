@@ -1,7 +1,7 @@
 package server.messages;
 
 import server.ResponseFormatter;
-import server.router.HttpMethods;
+import server.HttpMethods;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

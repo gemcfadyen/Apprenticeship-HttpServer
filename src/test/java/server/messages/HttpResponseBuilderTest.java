@@ -1,7 +1,7 @@
 package server.messages;
 
 import org.junit.Test;
-import server.router.HttpMethods;
+import server.HttpMethods;
 
 import java.util.Arrays;
 

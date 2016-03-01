@@ -4,7 +4,7 @@ import org.junit.Test;
 import server.ResourceHandlerSpy;
 import server.messages.HttpRequest;
 import server.messages.HttpRequestBuilder;
-import server.router.HttpMethods;
+import server.HttpMethods;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;

@@ -7,6 +7,7 @@ import server.httpserver.HttpServerSocket;
 import server.messages.HttpRequestParser;
 import server.messages.HttpResponseFormatter;
 import server.router.HttpRouteProcessor;
+import server.router.Routes;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -24,7 +25,7 @@ public class HttpServerRunner {
         HttpServer httpServer = new HttpServer(
                 httpServerSocket,
                 new HttpRequestParser(),
-                new HttpRouteProcessor( new FileResourceHandler(publicDirectory)),
+                new HttpRouteProcessor(new Routes(new FileResourceHandler(publicDirectory))),
                 new FixedThreadPoolExecutorService(4)
         );
 

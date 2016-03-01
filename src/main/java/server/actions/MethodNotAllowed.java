@@ -1,12 +1,12 @@
 package server.actions;
 
 import server.Action;
+import server.HttpMethods;
 import server.messages.HttpRequest;
 import server.messages.HttpResponse;
-import server.messages.StatusCode;
-import server.router.HttpMethods;
 
 import static server.messages.HttpResponseBuilder.anHttpResponseBuilder;
+import static server.messages.StatusCode.METHOD_NOT_ALLOWED;
 
 public class MethodNotAllowed implements Action {
 
@@ -14,7 +14,7 @@ public class MethodNotAllowed implements Action {
     public HttpResponse process(HttpRequest request) {
 
         return anHttpResponseBuilder()
-                .withStatusCode(StatusCode.METHOD_NOT_ALLOWED)
+                .withStatusCode(METHOD_NOT_ALLOWED)
                 .withAllowMethods(HttpMethods.values())
                 .build();
     }

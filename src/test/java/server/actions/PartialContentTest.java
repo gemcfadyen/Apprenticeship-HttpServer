@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 import static server.messages.HttpMessageHeaderProperties.PARTIAL_CONTENT_RANGE;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
 import static server.messages.StatusCode.PARTIAL_CONTENT;
-import static server.router.HttpMethods.GET;
+import static server.HttpMethods.GET;
 
 public class PartialContentTest {
 

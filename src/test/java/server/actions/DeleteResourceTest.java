@@ -9,7 +9,7 @@ import server.messages.StatusCode;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
-import static server.router.HttpMethods.DELETE;
+import static server.HttpMethods.DELETE;
 
 public class DeleteResourceTest {
     private ResourceHandlerSpy resourceHandlerSpy = new ResourceHandlerSpy();

@@ -1,6 +1,6 @@
 package server.messages;
 
-import server.router.HttpMethods;
+import server.HttpMethods;
 
 import java.util.ArrayList;
 import java.util.Collections;

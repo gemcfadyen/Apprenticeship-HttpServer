@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import server.ResponseFormatter;
-import server.router.HttpMethods;
+import server.HttpMethods;
 
 import java.io.UnsupportedEncodingException;
 

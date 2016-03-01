@@ -1,4 +1,4 @@
-package server.router;
+package server;
 
 public enum HttpMethods {
     GET,
