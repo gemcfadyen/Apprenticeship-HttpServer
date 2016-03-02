@@ -13,6 +13,7 @@ import static server.messages.HttpMessageHeaderProperties.IF_MATCH;
 import static server.messages.HttpResponseBuilder.anHttpResponseBuilder;
 import static server.messages.StatusCode.NO_CONTENT;
 import static server.messages.StatusCode.PRECONDITION_FAILED;
+import static server.router.Route.PATCH_CONTENT;
 
 public class PatchResource implements Action {
     private ResourceHandler resourceHandler;
@@ -21,6 +22,11 @@ public class PatchResource implements Action {
     public PatchResource(ResourceHandler resourceHandler, EtagGenerator eTagGenerator) {
         this.resourceHandler = resourceHandler;
         this.etagGenerator = eTagGenerator;
+    }
+
+    @Override
+    public boolean isEligible(HttpRequest request) {
+        return request.getRequestUri().equals(PATCH_CONTENT.getPath());
     }
 
     @Override

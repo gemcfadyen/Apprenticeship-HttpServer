@@ -5,10 +5,11 @@ public enum Route {
     FORM("/form"),
     METHOD_OPTIONS("/method_options"),
     REDIRECT("/redirect"),
-    IMAGE_JPEG("/image.jpeg"),
+    FOOBAR("/foobar"),
+    IMAGE_JPEG("/image.jpeg"), //generalise
     IMAGE_PNG("/image.png"),
     IMAGE_GIF("/image.gif"),
-    FILE("/file1"),
+    FILE("/file1"), //generalise
     TEXT_FILE("/text-file.txt"),
     PARAMETERS("/parameters"),
     LOGS("/logs"),

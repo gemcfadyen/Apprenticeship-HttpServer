@@ -22,11 +22,31 @@ public class PartialContentTest {
     private final PartialContent partialContentAction = new PartialContent(resourceHandlerSpy, new HeaderParameterExtractor());
 
     @Test
+    public void isEligibleForUriPartialContent() {
+        PartialContent partialContentAction = new PartialContent(resourceHandlerSpy, new HeaderParameterExtractor());
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/partial_content.txt")
+                .withRequestLine(GET.name())
+                .build();
+
+        assertThat(partialContentAction.isEligible(httpRequest), is(true));
+    }
+
+    @Test
+    public void isNotEligibleForOtherUris() {
+        PartialContent partialContentAction = new PartialContent(resourceHandlerSpy, new HeaderParameterExtractor());
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/another.txt")
+                .withRequestLine(GET.name())
+                .build();
+
+        assertThat(partialContentAction.isEligible(httpRequest), is(false));
+    }
+    @Test
     public void partialContentRequestContainsStatus206() {
         Map<String, String> headerParams = new HashMap<>();
         headerParams.put(PARTIAL_CONTENT_RANGE.getPropertyName(), "bytes=0-4");
 
-        ResourceHandlerSpy resourceHandlerSpy = new ResourceHandlerSpy();
         PartialContent partialContentAction = new PartialContent(resourceHandlerSpy, new HeaderParameterExtractor());
         HttpRequest httpRequest = anHttpRequestBuilder()
                 .withRequestUri("/partial_content.txt")

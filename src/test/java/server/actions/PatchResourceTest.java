@@ -30,9 +30,32 @@ public class PatchResourceTest {
     private final PatchResource patchResource = new PatchResource(resourceHandlerSpy, etagGenerator);
 
     @Test
+    public void actionIsEligibleForUriPatchingContent() {
+
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/patch-content.txt")
+                .withRequestLine(PATCH.name())
+                .withHeaderParameters(getPatchRequestHeaderProperties())
+                .build();
+
+        assertThat(patchResource.isEligible(httpRequest), is(true));
+    }
+
+    @Test
+    public void actionIsNotEligibleForOtherUris() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/another.txt")
+                .withRequestLine(PATCH.name())
+                .withHeaderParameters(getPatchRequestHeaderProperties())
+                .build();
+
+        assertThat(patchResource.isEligible(httpRequest), is(false));
+    }
+
+    @Test
     public void patchingResourceReturns204() {
         HttpRequest httpRequest = anHttpRequestBuilder()
-                .withRequestUri("/partial_content.txt")
+                .withRequestUri("/patch-context.txt")
                 .withRequestLine(PATCH.name())
                 .withHeaderParameters(getPatchRequestHeaderProperties())
                 .build();
@@ -45,7 +68,7 @@ public class PatchResourceTest {
     @Test
     public void patchResponseHaveNoBody() {
         HttpRequest httpRequest = anHttpRequestBuilder()
-                .withRequestUri("/partial_content.txt")
+                .withRequestUri("/patch_content.txt")
                 .withRequestLine(PATCH.name())
                 .withHeaderParameters(getPatchRequestHeaderProperties())
                 .build();
@@ -58,7 +81,7 @@ public class PatchResourceTest {
     @Test
     public void patchResourceIfEtagMatchesOriginalContent() {
         HttpRequest httpRequest = anHttpRequestBuilder()
-                .withRequestUri("/partial_content.txt")
+                .withRequestUri("/patch_content.txt")
                 .withRequestLine(PATCH.name())
                 .withHeaderParameters(getPatchRequestHeaderProperties())
                 .withBody("patched content")
@@ -76,7 +99,7 @@ public class PatchResourceTest {
         PatchResource patchResource = new PatchResource(resourceHandlerSpy, eTagDictionaryReturningNotFound());
 
         HttpRequest httpRequest = anHttpRequestBuilder()
-                .withRequestUri("/partial_content.txt")
+                .withRequestUri("/patch_content.txt")
                 .withRequestLine(PATCH.name())
                 .withHeaderParameters(getPatchRequestHeaderProperties())
                 .withBody("patched content")
@@ -92,10 +115,10 @@ public class PatchResourceTest {
 
     private EtagGenerator eTagDictionaryReturningNotFound() {
         return new EtagGenerator(SHA_1) {
-                public String calculateEtag(byte[] value) {
-                    return "the wrong value";
-                }
-            };
+            public String calculateEtag(byte[] value) {
+                return "the wrong value";
+            }
+        };
     }
 
     private Map<String, String> getPatchRequestHeaderProperties() {

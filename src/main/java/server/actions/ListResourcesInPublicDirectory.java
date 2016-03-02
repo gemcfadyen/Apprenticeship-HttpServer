@@ -5,6 +5,7 @@ import server.ResourceHandler;
 import server.messages.DelimitedFormatter;
 import server.messages.HttpRequest;
 import server.messages.HttpResponse;
+import server.router.Route;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,11 @@ public class ListResourcesInPublicDirectory implements Action {
     public ListResourcesInPublicDirectory(ResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
         listFormatter = new DelimitedFormatter<>();
+    }
+
+    @Override
+    public boolean isEligible(HttpRequest request) {
+        return request.getRequestUri().equals(Route.HOME.getPath());
     }
 
     public HttpResponse process(HttpRequest request) {

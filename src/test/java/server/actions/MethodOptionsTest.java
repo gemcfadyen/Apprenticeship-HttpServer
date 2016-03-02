@@ -15,6 +15,16 @@ public class MethodOptionsTest {
     private MethodOptions methodOptions = new MethodOptions();
 
     @Test
+    public void isAlwaysEligible() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/method_options")
+                .withRequestLine(OPTIONS.name())
+                .build();
+
+        assertThat(methodOptions.isEligible(httpRequest), is(true));
+    }
+
+    @Test
     public void simpleOptionReturns200Code() {
         HttpRequest httpRequest = anHttpRequestBuilder()
                 .withRequestUri("/method_options")

@@ -11,6 +11,11 @@ import static server.messages.StatusCode.METHOD_NOT_ALLOWED;
 public class MethodNotAllowed implements Action {
 
     @Override
+    public boolean isEligible(HttpRequest request) {
+        return true;
+    }
+
+    @Override
     public HttpResponse process(HttpRequest request) {
 
         return anHttpResponseBuilder()

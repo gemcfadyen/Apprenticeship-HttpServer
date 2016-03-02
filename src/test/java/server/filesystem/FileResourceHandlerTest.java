@@ -81,7 +81,7 @@ public class FileResourceHandlerTest {
     }
 
     @Test
-    public void readsContentOfExistingResource() throws IOException {
+    public void readsContentOfExistingFileResource() throws IOException {
         File resource = setupResourceWithContent("My=Data");
         ResourceHandler resourceHandler = new FileResourceHandler(absolutePath);
         byte[] resourceContent = resourceHandler.read("/" + resource.getName());

@@ -10,6 +10,7 @@ import java.util.Base64;
 
 import static server.messages.HttpResponseBuilder.anHttpResponseBuilder;
 import static server.messages.StatusCode.UNAUTHORISED;
+import static server.router.Route.LOGS;
 
 public class Authorisation implements Action {
    private HeaderParameterExtractor headerParameterExtractor;
@@ -18,6 +19,11 @@ public class Authorisation implements Action {
     public Authorisation(ReadResource readResource, HeaderParameterExtractor headerParameterExtractor) {
         this.headerParameterExtractor = headerParameterExtractor;
         this.readResource = readResource;
+    }
+
+    @Override
+    public boolean isEligible(HttpRequest request) {
+        return request.getRequestUri().equals(LOGS.getPath());
     }
 
     @Override

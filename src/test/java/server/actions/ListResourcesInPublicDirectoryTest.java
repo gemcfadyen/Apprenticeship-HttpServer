@@ -12,11 +12,32 @@ import static org.junit.Assert.assertThat;
 import static server.messages.HttpRequestBuilder.anHttpRequestBuilder;
 
 public class ListResourcesInPublicDirectoryTest {
+
+    private ResourceHandlerSpy resourceHandlerSpy = new ResourceHandlerSpy();
+    private ListResourcesInPublicDirectory listResources = new ListResourcesInPublicDirectory(resourceHandlerSpy);
+
+    @Test
+    public void actionIsEligibleForHomeUri() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/")
+                .withRequestLine(HttpMethods.GET.name())
+                .build();
+
+        assertThat(listResources.isEligible(httpRequest), is(true));
+    }
+
+    @Test
+    public void actionIsNotEligibleForAnotherUri() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/another")
+                .withRequestLine(HttpMethods.GET.name())
+                .build();
+
+        assertThat(listResources.isEligible(httpRequest), is(false));
+    }
+
     @Test
     public void responseContainsFilenamesAsLinks() {
-        ResourceHandlerSpy resourceHandlerSpy = new ResourceHandlerSpy();
-        ListResourcesInPublicDirectory listResources = new ListResourcesInPublicDirectory(resourceHandlerSpy);
-
         HttpRequest httpRequest = anHttpRequestBuilder()
                 .withRequestUri("/")
                 .withRequestLine(HttpMethods.GET.name())

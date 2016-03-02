@@ -20,6 +20,28 @@ public class AuthorisationTest {
     private Authorisation authorisation = new Authorisation(readResourceSpy, new HeaderParameterExtractor());
 
     @Test
+    public void isEligibleForLogsUri() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/logs")
+                .withRequestLine(GET.name())
+                .withHeaderParameters(new HashMap<>())
+                .build();
+
+        assertThat(authorisation.isEligible(httpRequest), is(true));
+    }
+
+    @Test
+    public void isNotEligibleForOtherUris() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/something-else")
+                .withRequestLine(GET.name())
+                .withHeaderParameters(new HashMap<>())
+                .build();
+
+        assertThat(authorisation.isEligible(httpRequest), is(false));
+    }
+
+    @Test
     public void returns403WhenRequestDoesNotContainAuthorisationFields() {
         HttpRequest httpRequest = anHttpRequestBuilder()
                 .withRequestUri("/logs")
@@ -101,6 +123,11 @@ class ReadResourceSpy extends ReadResource {
 
     public ReadResourceSpy(ResourceHandler resourceHandler) {
         super(resourceHandler);
+    }
+
+    @Override
+    public boolean isEligible(HttpRequest request) {
+        return true;
     }
 
     @Override

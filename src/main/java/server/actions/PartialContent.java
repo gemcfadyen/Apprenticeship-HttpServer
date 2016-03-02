@@ -6,6 +6,7 @@ import server.messages.HeaderParameterExtractor;
 import server.messages.HttpRequest;
 import server.messages.HttpResponse;
 import server.messages.Range;
+import server.router.Route;
 
 import java.util.Arrays;
 
@@ -19,6 +20,11 @@ public class PartialContent implements Action {
     public PartialContent(ResourceHandler resourceHandler, HeaderParameterExtractor headerParameterExtractor) {
         this.resourceHandler = resourceHandler;
         this. headerParameterExtractor = headerParameterExtractor;
+    }
+
+    @Override
+    public boolean isEligible(HttpRequest request) {
+        return request.getRequestUri().equals(Route.PARTIAL_CONTENT.getPath());
     }
 
     @Override

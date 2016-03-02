@@ -4,17 +4,19 @@ import server.Action;
 import server.HttpMethods;
 import server.RouteProcessor;
 import server.actions.MethodNotAllowed;
+import server.actions.NoDefaultActionException;
 import server.actions.UnknownRoute;
 import server.messages.HttpRequest;
 import server.messages.HttpResponse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static server.HttpMethods.isBogus;
 
 public class HttpRouteProcessor implements RouteProcessor {
-    private Map<RoutingCriteria, Action> routes = new HashMap<>();
+    private Map<HttpMethods, List<Action>> routes = new HashMap<>();
 
     public HttpRouteProcessor(Routes routes) {
         this.routes = routes.routes();
@@ -22,13 +24,15 @@ public class HttpRouteProcessor implements RouteProcessor {
 
     @Override
     public HttpResponse process(HttpRequest httpRequest) {
+        System.out.println("Request received from " + httpRequest.getRequestUri() + " with verb " + httpRequest.getMethod());
         if (isBogusMethod(httpRequest)) {
             return methodNotSupported(httpRequest);
-        } else if (supportedRoute(httpRequest)) {
+        } else {//if (supportedRoute(httpRequest)) {
             return processRoute(httpRequest);
-        } else {
-            return fourOFour(httpRequest);
         }
+        //else {
+        //    return fourOFour(httpRequest);
+       // }
     }
 
     private boolean isBogusMethod(HttpRequest httpRequest) {
@@ -40,16 +44,17 @@ public class HttpRouteProcessor implements RouteProcessor {
     }
 
     private boolean supportedRoute(HttpRequest httpRequest) {
-        return Route.isSupported(httpRequest.getRequestUri())
-                && routes.get(routingCriteria(httpRequest)) != null;
+        return routes.get(HttpMethods.valueOf(httpRequest.getMethod())) != null;
     }
 
     private HttpResponse processRoute(HttpRequest httpRequest) {
-        return routes.get(routingCriteria(httpRequest)).process(httpRequest);
-    }
-
-    private RoutingCriteria routingCriteria(HttpRequest httpRequest) {
-        return new RoutingCriteria(Route.getRouteFor(httpRequest.getRequestUri()), HttpMethods.valueOf(httpRequest.getMethod()));
+        List<Action> actions = routes.get(HttpMethods.valueOf(httpRequest.getMethod()));//routes.get(routingCriteria(httpRequest));
+        for (Action action : actions) {
+            if (action.isEligible(httpRequest)) {
+                return action.process(httpRequest);
+            }
+        }
+        throw new NoDefaultActionException();
     }
 
     private HttpResponse fourOFour(HttpRequest httpRequest) {

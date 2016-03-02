@@ -50,9 +50,13 @@ public class HttpRequestParser implements RequestParser {
         Map<String, String> headerParams = getHeaderParameters(reader);
         char[] bodyContents = getBody(reader, getContentLength(headerParams));
 
+        String requestUri = getRequestUri(requestLine);
+        System.out.println("REQUEST URI " + requestUri);
+        String method = getMethod(requestLine);
+        System.out.println("METHOD " + method);
         return anHttpRequestBuilder()
-                .withRequestLine(getMethod(requestLine))
-                .withRequestUri(getRequestUri(requestLine))
+                .withRequestLine(method)
+                .withRequestUri(requestUri)
                 .withParameters(getRequestParams(requestLine))
                 .withHeaderParameters(headerParams)
                 .withBody(String.valueOf(bodyContents))
@@ -87,7 +91,10 @@ public class HttpRequestParser implements RequestParser {
             headerParams.put(headerParameterKey(mapEntry), headerParameterValue(mapEntry));
             line = readLine(reader);
         }
-
+        System.out.println("Header params");
+        for (Map.Entry<String, String> s : headerParams.entrySet()) {
+            System.out.println(s.getKey() + " : " + s.getValue());
+        }
         return headerParams;
     }
 

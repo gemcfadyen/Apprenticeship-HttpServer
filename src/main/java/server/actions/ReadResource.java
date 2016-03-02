@@ -16,6 +16,11 @@ public class ReadResource implements Action {
     }
 
     @Override
+    public boolean isEligible(HttpRequest request) {
+        return true;
+    }
+
+    @Override
     public HttpResponse process(HttpRequest request) {
         byte[] body = resourceHandler.read(request.getRequestUri());
         return anHttpResponseBuilder()

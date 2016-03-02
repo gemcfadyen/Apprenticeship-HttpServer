@@ -14,6 +14,26 @@ public class RedirectTest {
     private Redirect redirect = new Redirect();
 
     @Test
+    public void isEligibleForUriRedirect() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/redirect")
+                .withRequestLine(GET.name())
+                .build();
+
+        assertThat(redirect.isEligible(httpRequest), is(true));
+    }
+
+    @Test
+    public void isNotEligibleForOtherUris() {
+        HttpRequest httpRequest = anHttpRequestBuilder()
+                .withRequestUri("/another")
+                .withRequestLine(GET.name())
+                .build();
+
+        assertThat(redirect.isEligible(httpRequest), is(false));
+    }
+
+    @Test
     public void redirectReturns302() {
         HttpRequest httpRequest = anHttpRequestBuilder()
                 .withRequestUri("/redirect")

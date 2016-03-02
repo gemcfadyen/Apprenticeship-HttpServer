@@ -5,22 +5,18 @@ import server.messages.HttpRequest;
 import server.messages.HttpResponse;
 
 import static server.messages.HttpResponseBuilder.anHttpResponseBuilder;
-import static server.messages.StatusCode.FOUND;
-import static server.router.Route.REDIRECT;
+import static server.messages.StatusCode.OK;
 
-public class Redirect implements Action {
+public class ActionStub implements Action {
 
     @Override
     public boolean isEligible(HttpRequest request) {
-        return request.getRequestUri().equals(REDIRECT.getPath());
+        return true;
     }
 
     @Override
     public HttpResponse process(HttpRequest request) {
-
         return anHttpResponseBuilder()
-                .withStatusCode(FOUND)
-                .withLocation("http://localhost:5000/")
-                .build();
+                .withStatusCode(OK).build();
     }
 }

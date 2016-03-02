@@ -16,6 +16,11 @@ public class DeleteResource implements Action {
     }
 
     @Override
+    public boolean isEligible(HttpRequest request) {
+        return true;
+    }
+
+    @Override
     public HttpResponse process(HttpRequest request) {
         resourceHandler.delete(request.getRequestUri());
 

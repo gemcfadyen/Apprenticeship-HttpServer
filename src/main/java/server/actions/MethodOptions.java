@@ -11,6 +11,11 @@ import static server.messages.StatusCode.OK;
 public class MethodOptions implements Action {
 
     @Override
+    public boolean isEligible(HttpRequest request) {
+        return true;
+    }
+
+    @Override
     public HttpResponse process(HttpRequest request) {
         return anHttpResponseBuilder()
                 .withStatusCode(OK)
